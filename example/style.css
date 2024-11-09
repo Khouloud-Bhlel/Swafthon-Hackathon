@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #4CAF50, #3F51B5);
+    color: #fff;
+  }
+  
+  .container {
+    text-align: center;
+    padding: 2em;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  h1 {
+    font-size: 2em;
+    margin-bottom: 1em;
+  }
+  
+  .buttons {
+    display: flex;
+    gap: 300px;
+    margin-top: 20px;
+  }
+  
+  button {
+    padding: 0.8em 2em;
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    background-color: #3F51B5;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #283593;
+  }
+  
+  #individu-btn {
+    background-color: #FF5722;
+  }
+  
+  #individu-btn:hover {
+    background-color: #E64A19;
+  }
+  
+  /* Styles pour le conteneur du formulaire d'inscription */
+  .form-container {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    height: 100%;
+    background-color: #fff;
+    color: #333;
+    box-shadow: -5px 0 10px rgba(0, 0, 0, 0.2);
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: right 0.4s ease;
+  }
+  
+  .form-container h2 {
+    margin-bottom: 1em;
+  }
+  
+  .form-container input {
+    margin-bottom: 1em;
+    padding: 0.5em;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .form-container button[type="submit"] {
+    padding: 0.6em 1em;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .form-container button[type="submit"]:hover {
+    background-color: #388E3C;
+  }
+  
+  /* Bouton d'annulation */
+  .form-container button:last-child {
+    margin-top: 1em;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .form-container button:last-child:hover {
+    background-color: #d32f2f;
+  }
+  
+  /* Style pour faire glisser le formulaire à l'écran */
+  .form-container.show {
+    right: 0;
+  }
+  
