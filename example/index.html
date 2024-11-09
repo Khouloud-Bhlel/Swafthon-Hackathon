@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plateforme Collaborative</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Bienvenue sur la plateforme collaborative</h1>
+    <p>Choisissez votre type d'utilisateur :</p>
+    <div class="buttons">
+      <button id="individu-btn" onclick="selectUserType('individu')">Individu</button>
+      <button id="club-btn" onclick="selectUserType('club')">Club/Association</button>
+    </div>
+    
+    <!-- Conteneur du formulaire d'inscription -->
+    <div class="form-container" id="form-container">
+      <h2>Inscription</h2>
+      <p id="user-type-text"></p>
+      <form>
+        <input type="text" placeholder="Nom d'utilisateur" required>
+        <input type="email" placeholder="Adresse email" required>
+        <input type="password" placeholder="Mot de passe" required>
+        <button type="submit">S'inscrire</button>
+      </form>
+      <button onclick="closeForm()">Annuler</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
