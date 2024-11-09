@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Club Connect</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #201E43;
+            --secondary: #134B70;
+            --accent: #508C9B;
+            --light: #EEEEEE;
+        }
+
+        body {
+            background-color: var(--light);
+        }
+
+          /* Navbar Styles */
+          .navbar {
+            background-color: var(--primary);
+            padding: 1.2rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--light);
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .notification-btn {
+            background-color: var(--accent);
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .notification-btn:hover {
+            background-color: #619daf;
+            transform: translateY(-2px);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ff4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            border: 2px solid var(--primary);
+        }
+
+        main {
+            margin-top: 80px;
+            padding: 2rem;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--dark-blue), var(--medium-blue));
+            color: rgb(5, 5, 5);
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .mission-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        @media (max-width: 768px) {
+            .mission-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .mission-text {
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .mission-text h2 {
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+        }
+
+        .mission-text p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+            animation: fadeInUp 1s ease 0.2s;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            color: var(--medium-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .features-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+            animation: fadeInUp 1s ease 0.4s;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--medium-blue);
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .team-section {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 1s ease 0.6s;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+
+        .member-name {
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .member-role {
+            color: var(--light-blue);
+            margin-bottom: 1rem;
+        }
+
+        .contact-section {
+            text-align: center;
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            animation: fadeInUp 1s ease 0.8s;
+        }
+
+        .contact-button {
+            display: inline-block;
+            background-color: var(--medium-blue);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .contact-button:hover {
+            background-color: var(--light-blue);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-content">
+        <a href="/" class="logo">
+            <i class="fas fa-network-wired"></i>
+            CollabHub
+        </a>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/events">Events</a>
+            <a href="/club">Clubs</a>
+            <button class="notification-btn">
+                <i class="fas fa-bell"></i>
+                <span>Notifications</span>
+                <div class="notification-badge">3</div>
+            </button>
+        </div>
+    </div>
+</nav>
+
+
+    <main>
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Connecting Communities, Creating Opportunities</h1>
+                <p class="hero-description">
+                    ClubConnect is a platform that brings together clubs, associations, and individuals to create meaningful connections and foster community engagement.
+                </p>
+            </div>
+        </section>
+
+        <div class="content-section">
+            <section class="mission-section">
+                <div class="mission-text">
+                    <h2>Our Mission</h2>
+                    <p>
+                        Our mission is to create a vibrant ecosystem where clubs and individuals can connect, collaborate, and grow together. We believe in the power of community and shared interests to drive positive change and personal development.
+                    </p>
+                    <p>
+                        Through our platform, we aim to break down barriers between organizations and individuals, making it easier than ever to discover, join, and participate in activities that match your interests and passions.
+                    </p>
+                </div>
+                <div class="mission-text">
+                    <h2>Our Vision</h2>
+                    <p>
+                        We envision a world where everyone can easily find and join communities that share their interests, where clubs can efficiently manage their activities, and where meaningful connections are made every day.
+                    </p>
+                    <p>
+                        By providing the right tools and platform, we help transform how people connect and engage with clubs and associations in their community.
+                    </p>
+                </div>
+            </section>
+
+            <section class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Active Clubs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">10,000+</div>
+                    <div class="stat-label">Members</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1,000+</div>
+                    <div class="stat-label">Events Hosted</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Cities</div>
+                </div>
+            </section>
+
+            <section class="features-section">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Community Building</h3>
+                    <p class="feature-description">
+                        Create and join communities based on shared interests, hobbies, and goals. Connect with like-minded individuals.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Event Management</h3>
+                    <p class="feature-description">
+                        Easily organize, promote, and manage events. Keep track of attendees and engage with your community.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="feature-title">Communication Tools</h3>
+                    <p class="feature-description">
+                        Stay connected with your community through integrated messaging and announcement features.
+                    </p>
+                </div>
+            </section>
+
+            <section class="team-section">
+                <h2>Our Team</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="/api/placeholder/120/120" alt="Team Member">
+                        <h3 class="member-name">Sarah Johnson</h3>
+                        <div class="member-role">Founder & CEO</div>
+                        <p>Passionate about bringing communities together</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="/api/placeholder/120/120" alt="Team Member">
+                        <h3 class="member-name">Michael Chen</h3>
+                        <div class="member-role">Technical Director</div>
+                        <p>Building the future of community platforms</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="/api/placeholder/120/120" alt="Team Member">
+                        <h3 class="member-name">Emma Rodriguez</h3>
+                        <div class="member-role">Community Manager</div>
+                        <p>Ensuring the best experience for our users</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="contact-section">
+                <h2>Get in Touch</h2>
+                <p>Have questions or suggestions? We'd love to hear from you!</p>
+                <a href="#" class="contact-button">Contact Us</a>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation for elements on scroll
+            const animatedElements = document.querySelectorAll('.mission-section, .stats-section, .features-section, .team-section, .contact-section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            animatedElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'all 0.5s ease';
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
