@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class SwafyConfig(AppConfig):
+class HackathonConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'swafy'
+    name = 'hackathon'
