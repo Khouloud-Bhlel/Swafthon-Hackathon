@@ -55,7 +55,9 @@ ROOT_URLCONF = 'swaf.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+         'DIRS': [
+            BASE_DIR / 'hackathon' / 'template',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
