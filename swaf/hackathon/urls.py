@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 app_name = 'hackathon'
@@ -13,5 +15,12 @@ urlpatterns = [
     path('about/', views.about_page, name='about'),
     path('chatbot/', views.chatbot_page, name='chatbot'),
     path('api/chat/', views.chat_with_gemini, name='chat_with_gemini'),
+
     path('api/load_chat/', views.load_chat_page, name='load_chat_page'),
 ]
+
+    path('saas/', views.saas_page, name='saas'),
+    path('course/', views.course_page, name='course'),
+    path('api/initialize_chat/', views.initialize_chat, name='initialize_chat'),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

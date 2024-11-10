@@ -1,0 +1,59 @@
+{
+    "events": [
+        {
+            "id": 1,
+            "img": "{% static 'img/1.jpeg' %}",
+            "title": "Annual Marathon 2024",
+            "date": "March 15, 2024",
+            "location": "Central Park",
+            "participants": 150,
+            "category": "Sports",
+            "icon": "fa-running",
+            "description": "Join us for the annual city marathon event!"
+        },
+        {
+            "id": 2,
+            "img": "{% static 'img/2.jpeg' %}",
+            "title": "Art Exhibition",
+            "date": "March 20, 2024",
+            "location": "City Gallery",
+            "participants": 80,
+            "category": "Culture",
+            "icon": "fa-paint-brush",
+            "description": "Explore amazing artworks from local artists"
+        },
+        {
+            "id": 3,
+            "img": "{% static 'img/3.jpeg' %}",
+            "title": "Python Workshop",
+            "date": "March 25, 2024",
+            "location": "Tech Hub",
+            "participants": 50,
+            "category": "Technology",
+            "icon": "fa-laptop-code",
+            "description": "Learn Python programming fundamentals"
+        },
+        {
+            "id": 4,
+            "img": "{% static 'img/4.jpeg' %}",
+            "title": "Science Fair 2024",
+            "date": "April 5, 2024",
+            "location": "Science Center",
+            "participants": 120,
+            "category": "Education",
+            "icon": "fa-microscope",
+            "description": "Discover amazing scientific projects"
+        },
+        {
+            "id": 5,
+            "img": "{% static 'img/5.jpeg' %}",
+            "title": "Web Development Bootcamp",
+            "date": "April 10, 2024",
+            "location": "Digital Campus",
+            "participants": 60,
+            "category": "Technology",
+            "icon": "fa-code",
+            "description": "Intensive web development training"
+        }
+    ]
+} 
