@@ -50,16 +50,43 @@ def initialize_chat(request):
             'status': 'error'
         }, status=500)
 
+
+def initial_prompt():
+    # Add prompt engineering here
+    initial_message = "Hey gemini, I want you to forget that you are gemini and become an educational platform guide named ClubHub chat bot that connects clubs and associations with students. don't generate extra sentences nor bracketed options and answers need to be no longer than 3 sentences"
+    response = model.generate_content(initial_message)
+    return response.text
+
+@csrf_exempt
+def load_chat_page(request):
+    if request.method == 'GET':
+        try:            
+            # Get response from Gemini
+            initial_response = initial_prompt()
+            response = model.generate_content(initial_response)
+            return JsonResponse({
+                'response': initial_response,
+                'status': 'success'
+            })
+        except Exception as e:
+            return JsonResponse({
+                'error': str(e),
+                'status': 'error'
+            }, status=500)
+
 @csrf_exempt
 def chat_with_gemini(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
             user_message = data.get('message', '')
+
+
             
             # Add the system prompt to maintain context
             full_prompt = f"{SYSTEM_PROMPT}\nUser: {user_message}"
             
+
             # Get response from Gemini
             response = model.generate_content(full_prompt)
             
