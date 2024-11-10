@@ -171,7 +171,7 @@
     <div class="chat-container">
         <div class="chat-header">Space Chatbot</div>
         <div class="chat-messages" id="chat-messages">
-            <div class="message bot-message">Hello, space traveler! How can I assist you today?</div>
+            <div class="message bot-message"></div>
         </div>
         <div class="typing-indicator" id="typing-indicator">Bot is typing</div>
         <div class="chat-input">
@@ -181,6 +181,22 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/api/load_chat/')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        const chatMessages = document.getElementById('chat-messages');
+                        const initialMessage = document.createElement('div');
+                        initialMessage.className = 'message bot-message';
+                        initialMessage.textContent = data.response;
+                        chatMessages.appendChild(initialMessage);
+                    } else {
+                        console.error('Error loading initial prompt:', data.error);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
         // Create animated stars
         function createStars() {
             const starsContainer = document.querySelector('.stars');
