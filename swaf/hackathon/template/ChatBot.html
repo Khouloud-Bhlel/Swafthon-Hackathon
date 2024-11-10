@@ -13,7 +13,7 @@
     <div class="chat-container">
         <div class="chat-header">Space Chatbot</div>
         <div class="chat-messages" id="chat-messages">
-            <div class="message bot-message">Hello, space traveler! How can I assist you today?</div>
+           
         </div>
         <div class="typing-indicator" id="typing-indicator">Bot is typing</div>
         <div class="chat-input">
@@ -28,10 +28,31 @@
             const sendButton = document.getElementById('send-button');
             const typingIndicator = document.getElementById('typing-indicator');
             
+            // Create animated stars
+            function createStars() {
+                const starsContainer = document.querySelector('.stars');
+                const starCount = 100;
+
+                for (let i = 0; i < starCount; i++) {
+                    const star = document.createElement('div');
+                    star.classList.add('star');
+                    star.style.width = `${Math.random() * 3}px`;
+                    star.style.height = star.style.width;
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.animationDelay = `${Math.random() * 2}s`;
+                    starsContainer.appendChild(star);
+                }
+            }
+
+            createStars();
+            
             // Hide typing indicator initially
             typingIndicator.style.display = 'none';
 
             async function sendMessage(message) {
+                if (!message.trim()) return;
+                
                 // Show user message
                 const userDiv = document.createElement('div');
                 userDiv.className = 'message user-message';
@@ -46,6 +67,7 @@
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
+                            'X-CSRFToken': getCookie('csrftoken')  // Add CSRF token
                         },
                         body: JSON.stringify({ message: message })
                     });
@@ -64,6 +86,7 @@
                         throw new Error(data.error);
                     }
                 } catch (error) {
+                    console.error('Error:', error);
                     // Hide typing indicator
                     typingIndicator.style.display = 'none';
                     
@@ -97,9 +120,28 @@
                 }
             });
 
+            // Get CSRF token from cookies
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+
             // Initialize chat
             fetch('/api/initialize_chat/', {
-                method: 'POST'
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken')  // Add CSRF token
+                }
             })
             .then(response => response.json())
             .then(data => {
