@@ -222,24 +222,42 @@
             }, 1500);
         }
 
-        function handleUserInput() {
-            const message = userInput.value.trim();
-            if (message) {
-                addMessage(message, true);
-                userInput.value = '';
+        async function handleUserInput() {
+        const message = userInput.value.trim();
+        if (message) {
+            addMessage(message, true);
+            userInput.value = '';
+            
+            // Show typing indicator
+            typingIndicator.style.display = 'block';
+            
+            try {
+                // Call Django backend
+                const response = await fetch('/api/chat/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: message })
+                });
                 
-                // Simulate bot reply
-                const botResponses = [
-                    "That's fascinating! Tell me more about your space adventures.",
-                    "Interesting question! Let me consult my cosmic database.",
-                    "Ah, the wonders of the universe never cease to amaze!",
-                    "Beep boop! I mean, that's a great point you've made!",
-                    "Houston, we have a conversation! What else is on your mind?"
-                ];
-                const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
-                botReply(randomResponse);
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    // Hide typing indicator and add bot message
+                    typingIndicator.style.display = 'none';
+                    addMessage(data.response);
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (error) {
+                typingIndicator.style.display = 'none';
+                addMessage("I apologize, but I encountered an error. Please try again later.");
+                console.error('Error:', error);
             }
         }
+    }
+
 
         sendButton.addEventListener('click', handleUserInput);
         userInput.addEventListener('keypress', (e) => {
