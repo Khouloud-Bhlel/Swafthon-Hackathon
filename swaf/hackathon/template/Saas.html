@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Pricing Plans</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #201E43;
+            color: #EEEEEE;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #508C9B;
+        }
+
+        .pricing-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .plan-card {
+            background: #134B70;
+            border-radius: 15px;
+            padding: 2rem;
+            flex: 1;
+            max-width: 450px;
+            min-width: 300px;
+            height: fit-content;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .plan-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(80, 140, 155, 0.3);
+        }
+
+        .plan-name {
+            font-size: 1.8rem;
+            color: #EEEEEE;
+            margin-bottom: 1rem;
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            color: #508C9B;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .plan-price span {
+            font-size: 1rem;
+            color: #EEEEEE;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            color: #508C9B;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: #508C9B;
+            color: #EEEEEE;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            background: #EEEEEE;
+            color: #201E43;
+        }
+
+        .premium-feature {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(80, 140, 155, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(80, 140, 155, 0.3);
+        }
+
+        .premium-feature h3 {
+            color: #508C9B;
+            margin-bottom: 1rem;
+        }
+
+        .premium-feature ul {
+            list-style: none;
+        }
+
+        .premium-feature ul li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .premium-feature ul li::before {
+            content: '•';
+            color: #508C9B;
+            position: absolute;
+            left: 0;
+        }
+
+        .show-premium {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 1rem;
+            right: -2rem;
+            background: #508C9B;
+            color: #EEEEEE;
+            padding: 0.5rem 3rem;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .save-badge {
+            position: absolute;
+            top: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #508C9B;
+            color: #EEEEEE;
+            padding: 0.5rem 2rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 900px) {
+            .pricing-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .plan-card {
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Choose Your Perfect Plan</h1>
+        <p>Unlock the full potential of our platform with our carefully crafted plans</p>
+    </div>
+
+    <div class="pricing-container">
+        <div class="plan-card">
+            <div class="save-badge">Free</div>
+            <div class="plan-header">
+                <h2 class="plan-name">Base Plan</h2>
+                <div class="plan-price">Free<span>/month</span></div>
+                <p>Perfect for getting started</p>
+            </div>
+            <ul class="features-list">
+                <li>Access to All Events</li>
+                <li>Club Membership</li>
+                <li>Community Forums</li>
+                <li>Basic Support</li>
+                <li>Monthly Newsletter</li>
+            </ul>
+            <button class="cta-button" onclick="showBasePlanFeatures(); window.location.href='/chatbot';">Get Started</button>
+            <div class="premium-feature" id="base-features">
+                <h3>Included Events & Clubs</h3>
+                <ul>
+                    <li>Weekly Networking Meetups</li>
+                    <li>Monthly Professional Workshops</li>
+                    <li>Industry Networking Events</li>
+                    <li>Career Development Sessions</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="plan-card">
+            <div class="popular-badge">POPULAR</div>
+            <div class="plan-header">
+                <h2 class="plan-name">Premium Plan</h2>
+                <div class="plan-price">10 dt<span>/month</span></div>
+                <p>For professionals who want more</p>
+            </div>
+            <ul class="features-list">
+                <li>All Base Plan Features</li>
+                <li>24/7 AI Chatbot Support</li>
+                <li>Premium Course Library</li>
+                <li>Priority Support</li>
+                <li>Exclusive VIP Content</li>
+            </ul>
+            <button class="cta-button" onclick="showBasePlanFeatures(); window.location.href='/course';">Get Started</button>
+            <div class="premium-feature" id="premium-features">
+                <h3>Premium Benefits</h3>
+                <ul>
+                    <li>Advanced AI Learning Assistant</li>
+                    <li>200+ Professional Courses</li>
+                    <li>VIP Event Access</li>
+                    <li>1-on-1 Mentoring Sessions</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPremiumFeatures() {
+            const premiumFeatures = document.getElementById('premium-features');
+            premiumFeatures.classList.toggle('show-premium');
+        }
+
+        function showBasePlanFeatures() {
+            const baseFeatures = document.getElementById('base-features');
+            baseFeatures.classList.toggle('show-premium');
+        }
+
+        // Enhanced hover effects
+        const planCards = document.querySelectorAll('.plan-card');
+        planCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px)';
+                card.style.boxShadow = '0 10px 20px rgba(0,0,0,0.2)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+                card.style.boxShadow = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

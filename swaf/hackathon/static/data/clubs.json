@@ -1,0 +1,44 @@
+{
+    "clubs": [
+        {
+            "id": 1,
+            "title": "Sports Champions Club",
+            "category": "Sports",
+            "description": "A community of sports enthusiasts dedicated to promoting physical activity and team spirit through various sporting events.",
+            "members": 250,
+            "upcomingEvents": 5,
+            "icon": "fa-running",
+            "socialLinks": ["facebook", "instagram", "twitter"]
+        },
+        {
+            "id": 2,
+            "title": "Creative Arts Society",
+            "category": "Arts & Culture",
+            "description": "A vibrant community of artists and creators exploring various forms of artistic expression and cultural activities.",
+            "members": 180,
+            "upcomingEvents": 3,
+            "icon": "fa-palette",
+            "socialLinks": ["facebook", "instagram", "twitter"]
+        },
+        {
+            "id": 3,
+            "title": "Tech Innovators",
+            "category": "Technology",
+            "description": "A group of tech enthusiasts working on innovative projects and sharing knowledge through workshops and hackathons.",
+            "members": 150,
+            "upcomingEvents": 4,
+            "icon": "fa-laptop-code",
+            "socialLinks": ["facebook", "instagram", "twitter"]
+        },
+        {
+            "id": 4,
+            "title": "Science Club",
+            "category": "Science",
+            "description": "Exploring the wonders of science through experiments, research, and collaborative projects.",
+            "members": 120,
+            "upcomingEvents": 2,
+            "icon": "fa-microscope",
+            "socialLinks": ["facebook", "instagram", "twitter"]
+        }
+    ]
+} 

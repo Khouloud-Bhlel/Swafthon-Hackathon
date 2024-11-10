@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,350 +6,164 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clubs - Club Connect</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-          * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    <link rel="stylesheet" href="{% static 'css/ClubPage.css' %}">
+<style>
+   /* ... existing CSS ... */
 
-        :root {
-            --primary: #201E43;
-            --secondary: #134B70;
-            --accent: #508C9B;
-            --light: #EEEEEE;
-        }
+.club-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid #eaeaea;
+}
 
-        body {
-            background-color: var(--light);
-        }
+.club-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
 
-          /* Navbar Styles */
-          .navbar {
-            background-color: var(--primary);
-            padding: 1.2rem 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+.club-card:active {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
 
-        .nav-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.club-banner {
+    background: linear-gradient(45deg, var(--primary), var(--medium-blue));
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
 
-        .logo {
-            color: var(--light);
-            font-size: 1.8rem;
-            font-weight: bold;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+.club-logo {
+    background: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
-        .logo i {
-            color: var(--accent);
-        }
+.club-content {
+    padding: 1.5rem;
+}
 
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            align-items: center;
-        }
+.club-title {
+    color: var(--primary);
+    font-size: 1.25rem;
+    margin: 0.5rem 0;
+    font-weight: 600;
+}
 
-        .nav-links a {
-            color: var(--light);
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 500;
-            position: relative;
-            padding: 0.5rem 0;
-            transition: color 0.3s ease;
-        }
+.club-category {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: var(--light-blue);
+    color: var(--primary);
+    border-radius: 20px;
+    font-size: 0.875rem;
+    margin: 0.5rem 0;
+}
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--accent);
-            transition: width 0.3s ease;
-        }
+.club-description {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0.75rem 0;
+}
 
-        .nav-links a:hover {
-            color: var(--accent);
-        }
+.club-stats {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+    color: #555;
+    font-size: 0.9rem;
+}
 
-        .nav-links a:hover::after {
-            width: 100%;
-        }
+.club-stats span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
 
-        .notification-btn {
-            background-color: var(--accent);
-            border: none;
-            padding: 0.7rem 1.2rem;
-            border-radius: 25px;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
+.club-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
 
-        .notification-btn:hover {
-            background-color: #619daf;
-            transform: translateY(-2px);
-        }
+.join-btn {
+    background: var(--primary);
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
 
-        .notification-badge {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: #ff4444;
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            border: 2px solid var(--primary);
-        }
+.join-btn:hover {
+    background: var(--medium-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-        main {
-            margin-top: 80px;
-            padding: 2rem;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+.social-links {
+    display: flex;
+    gap: 1rem;
+    color: #666;
+}
 
-        .clubs-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            color: var(--dark-blue);
-            animation: fadeInDown 1s ease;
-        }
+.social-links i {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-        .search-section {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            animation: fadeIn 1s ease;
-        }
+.social-links i:hover {
+    color: var(--primary);
+    transform: scale(1.1);
+}
 
-        .search-bar {
-            display: flex;
-            gap: 1rem;
-        }
+/* Add these new styles for better grid layout */
+.clubs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
 
-        .search-bar input {
-            flex: 1;
-            padding: 0.8rem;
-            border: none;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+/* Add responsive design */
+@media (max-width: 768px) {
+    .clubs-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+        padding: 1rem;
+    }
 
-        .search-bar button {
-            background-color: var(--medium-blue);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .search-bar button:hover {
-            background-color: var(--light-blue);
-        }
-
-        .filters {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            background-color: white;
-            border: 2px solid var(--medium-blue);
-            color: var(--medium-blue);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background-color: var(--medium-blue);
-            color: white;
-        }
-
-        .clubs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-            animation: fadeInUp 1s ease;
-        }
-
-        .club-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .club-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .club-banner {
-            height: 120px;
-            background: linear-gradient(135deg, var(--medium-blue), var(--light-blue));
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-
-        .club-logo {
-            width: 80px;
-            height: 80px;
-            background-color: white;
-            border-radius: 50%;
-            position: absolute;
-            bottom: -40px;
-            left: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .club-content {
-            padding: 2rem 1.5rem 1.5rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .club-title {
-            color: var(--dark-blue);
-            margin-bottom: 0.5rem;
-            font-size: 1.4rem;
-        }
-
-        .club-category {
-            color: var(--light-blue);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .club-description {
-            color: #666;
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-        }
-
-        .club-stats {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .club-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
-        }
-
-        .join-btn {
-            background-color: var(--medium-blue);
-            color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-
-        .join-btn:hover {
-            background-color: var(--light-blue);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            color: var(--medium-blue);
-        }
-
-        .social-links i {
-            transition: color 0.3s ease;
-            cursor: pointer;
-        }
-
-        .social-links i:hover {
-            color: var(--light-blue);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
+    .club-card {
+        margin-bottom: 1rem;
+    }
+}
+</style>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-content">
             <a href="/" class="logo">
                 <i class="fas fa-network-wired"></i>
-                CollabHub
+                ClubIn
             </a>
             <div class="nav-links">
                 <a href="/">Home</a>
@@ -377,112 +192,161 @@
             </div>
 
             <div class="filters">
-                <button class="filter-btn active">All Clubs</button>
-                <button class="filter-btn">Sports</button>
-                <button class="filter-btn">Arts & Culture</button>
-                <button class="filter-btn">Technology</button>
-                <button class="filter-btn">Science</button>
-                <button class="filter-btn">Social</button>
+                <button class="filter-btn active" style="color: black;">All Clubs</button>
+                <button class="filter-btn" style="color: black;">Sports</button>
+                <button class="filter-btn" style="color: black;">Arts & Culture</button>
+                <button class="filter-btn" style="color: black;">Technology</button>
+                <button class="filter-btn" style="color: black;">Science</button>
+                <button class="filter-btn" style="color: black;">Social</button>
             </div>
         </div>
 
         <div class="clubs-grid">
-            <!-- Club Card 1 -->
-            <div class="club-card">
-                <div class="club-banner">
-                    <div class="club-logo">
-                        <i class="fas fa-running fa-2x" style="color: var(--medium-blue)"></i>
-                    </div>
-                </div>
-                <div class="club-content">
-                    <h3 class="club-title">Sports Champions Club</h3>
-                    <div class="club-category">
-                        <i class="fas fa-tag"></i> Sports
-                    </div>
-                    <p class="club-description">
-                        A community of sports enthusiasts dedicated to promoting physical activity and team spirit through various sporting events.
-                    </p>
-                    <div class="club-stats">
-                        <span><i class="fas fa-users"></i> 250 members</span>
-                        <span><i class="far fa-calendar"></i> 5 upcoming events</span>
-                    </div>
-                    <div class="club-footer">
-                        <a href="#" class="join-btn">Join Club</a>
-                        <div class="social-links">
-                            <i class="fab fa-facebook"></i>
-                            <i class="fab fa-instagram"></i>
-                            <i class="fab fa-twitter"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Club Card 2 -->
-            <div class="club-card">
-                <div class="club-banner">
-                    <div class="club-logo">
-                        <i class="fas fa-palette fa-2x" style="color: var(--medium-blue)"></i>
-                    </div>
-                </div>
-                <div class="club-content">
-                    <h3 class="club-title">Creative Arts Society</h3>
-                    <div class="club-category">
-                        <i class="fas fa-tag"></i> Arts & Culture
-                    </div>
-                    <p class="club-description">
-                        A vibrant community of artists and creators exploring various forms of artistic expression and cultural activities.
-                    </p>
-                    <div class="club-stats">
-                        <span><i class="fas fa-users"></i> 180 members</span>
-                        <span><i class="far fa-calendar"></i> 3 upcoming events</span>
-                    </div>
-                    <div class="club-footer">
-                        <a href="#" class="join-btn">Join Club</a>
-                        <div class="social-links">
-                            <i class="fab fa-facebook"></i>
-                            <i class="fab fa-instagram"></i>
-                            <i class="fab fa-twitter"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Club Card 3 -->
-            <div class="club-card">
-                <div class="club-banner">
-                    <div class="club-logo">
-                        <i class="fas fa-laptop-code fa-2x" style="color: var(--medium-blue)"></i>
-                    </div>
-                </div>
-                <div class="club-content">
-                    <h3 class="club-title">Tech Innovators</h3>
-                    <div class="club-category">
-                        <i class="fas fa-tag"></i> Technology
-                    </div>
-                    <p class="club-description">
-                        A group of tech enthusiasts working on innovative projects and sharing knowledge through workshops and hackathons.
-                    </p>
-                    <div class="club-stats">
-                        <span><i class="fas fa-users"></i> 150 members</span>
-                        <span><i class="far fa-calendar"></i> 4 upcoming events</span>
-                    </div>
-                    <div class="club-footer">
-                        <a href="#" class="join-btn">Join Club</a>
-                        <div class="social-links">
-                            <i class="fab fa-facebook"></i>
-                            <i class="fab fa-instagram"></i>
-                            <i class="fab fa-twitter"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- Remove the hardcoded club cards - they will be generated dynamically -->
         </div>
     </main>
 
+  
     <script>
+        let allClubs = []; // Store all clubs globally
 
-          // Navbar Scroll Effect
-          window.addEventListener('scroll', function() {
+        async function loadClubs() {
+            try {
+                const response = await fetch("{% static 'data/clubs.json' %}");
+                const data = await response.json();
+                allClubs = data.clubs; // Store all clubs
+                displayClubs(allClubs); // Display all clubs initially
+                setupCategoryFilters(); // Setup category filters
+            } catch (error) {
+                console.error('Error loading clubs:', error);
+                const clubsGrid = document.querySelector('.clubs-grid');
+                clubsGrid.innerHTML = '<p>Failed to load clubs. Please try again later.</p>';
+            }
+        }
+
+        function displayClubs(clubs) {
+            const clubsGrid = document.querySelector('.clubs-grid');
+            clubsGrid.innerHTML = ''; // Clear existing content
+            
+            if (clubs.length === 0) {
+                clubsGrid.innerHTML = '<p>No clubs found matching your criteria.</p>';
+                return;
+            }
+
+            clubs.forEach(club => {
+                const clubCard = createClubCard(club);
+                clubsGrid.appendChild(clubCard);
+            });
+        }
+
+        function createClubCard(club) {
+            const card = document.createElement('div');
+            card.className = 'club-card';
+            card.innerHTML = `
+                <div class="club-banner">
+                    
+                </div>
+                <div class="club-content">
+                    <h3 class="club-title">${club.title}</h3>
+                    <div class="club-category">
+                        <i class="fas fa-tag"></i> ${club.category}
+                    </div>
+                    <p class="club-description">${club.description}</p>
+                    <div class="club-stats">
+                        <span><i class="fas fa-users"></i> ${club.memberCount} members</span>
+                        <span><i class="far fa-calendar"></i> ${club.upcomingEvents} upcoming events</span>
+                    </div>
+                    <div class="club-footer">
+                        <a href="#" class="join-btn">Join Club</a>
+                        <div class="social-links">
+                            <i class="fab fa-facebook"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Add click event to the entire card
+            card.addEventListener('click', () => {
+                window.location.href = '/login';
+            });
+
+            // Prevent navigation when clicking social links or join button
+            const socialLinks = card.querySelectorAll('.social-links i');
+            const joinBtn = card.querySelector('.join-btn');
+
+            [...socialLinks, joinBtn].forEach(element => {
+                element.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevents the card click event
+                    if (element === joinBtn) {
+                        window.location.href = '/login';
+                    }
+                });
+            });
+
+            return card;
+        }
+
+        // Search functionality
+        function handleSearch() {
+            const searchInput = document.querySelector('.search-bar input');
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            const filteredClubs = allClubs.filter(club => 
+                club.title.toLowerCase().includes(searchTerm) ||
+                club.description.toLowerCase().includes(searchTerm)
+            );
+            
+            displayClubs(filteredClubs);
+        }
+
+        // Category filter functionality
+        function setupCategoryFilters() {
+            const categories = [...new Set(allClubs.map(club => club.category))];
+            const filtersContainer = document.querySelector('.filters');
+            
+            filtersContainer.innerHTML = `
+                <button class="filter-btn active" data-category="all">All Clubs</button>
+                ${categories.map(category => 
+                    `<button class="filter-btn" data-category="${category}">${category}</button>`
+                ).join('')}
+            `;
+
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const category = button.dataset.category;
+                    const filteredClubs = category === 'all' 
+                        ? allClubs 
+                        : allClubs.filter(club => club.category === category);
+                    
+                    displayClubs(filteredClubs);
+                });
+            });
+        }
+
+        // Initialize everything when document loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadClubs();
+            
+            const searchInput = document.querySelector('.search-bar input');
+            const searchButton = document.querySelector('.search-bar button');
+            
+            searchInput.addEventListener('input', handleSearch);
+            searchButton.addEventListener('click', handleSearch);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    handleSearch();
+                }
+            });
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
             if (window.scrollY > 50) {
                 navbar.style.backgroundColor = 'rgba(32, 30, 67, 0.95)';
@@ -492,11 +356,9 @@
                 navbar.style.backdropFilter = 'none';
             }
         });
-
-
+        // Animation for cards on scroll
         document.addEventListener('DOMContentLoaded', function() {
-            // Animation for cards on scroll
-            const cards = document.querySelectorAll('.club-card');
+            const cards = document.querySelectorAll('.event-card');
             
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -530,6 +392,36 @@
             });
             searchInput.addEventListener('blur', () => {
                 searchInput.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animate the return button entrance
+            gsap.from('.return-button', {
+                x: -100,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out",
+                delay: 0.5
+            });
+
+            // Add hover animation
+            const returnButton = document.querySelector('.return-button');
+            
+            returnButton.addEventListener('mouseenter', () => {
+                gsap.to(returnButton, {
+                    x: -5,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+
+            returnButton.addEventListener('mouseleave', () => {
+                gsap.to(returnButton, {
+                    x: 0,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
             });
         });
     </script>

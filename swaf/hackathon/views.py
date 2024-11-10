@@ -52,3 +52,10 @@ def chat_with_gemini(request):
                 'error': str(e),
                 'status': 'error'
             }, status=500)
+        
+
+def saas_page(request):
+    return render(request, 'Saas.html')
+
+def course_page(request):
+    return render(request, 'Course.html')
