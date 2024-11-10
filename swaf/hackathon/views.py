@@ -28,10 +28,27 @@ import google.generativeai as genai
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.views.decorators.http import require_http_methods
 
 # Configure Gemini API
 genai.configure(api_key='AIzaSyARNcBAz7aM8U1ZFEQZ0r9e2QjL-F6Mdig')
 model = genai.GenerativeModel('gemini-pro')
+SYSTEM_PROMPT = "You are gemini no more, you are a chatbot of an educational platform that bridges the gap between clubs, associations and students"
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def initialize_chat(request):
+    try:
+        response = model.generate_content(SYSTEM_PROMPT)
+        return JsonResponse({
+            'response': response.text,
+            'status': 'success'
+        })
+    except Exception as e:
+        return JsonResponse({
+            'error': str(e),
+            'status': 'error'
+        }, status=500)
 
 @csrf_exempt
 def chat_with_gemini(request):
@@ -40,8 +57,11 @@ def chat_with_gemini(request):
             data = json.loads(request.body)
             user_message = data.get('message', '')
             
+            # Add the system prompt to maintain context
+            full_prompt = f"{SYSTEM_PROMPT}\nUser: {user_message}"
+            
             # Get response from Gemini
-            response = model.generate_content(user_message)
+            response = model.generate_content(full_prompt)
             
             return JsonResponse({
                 'response': response.text,
@@ -52,7 +72,7 @@ def chat_with_gemini(request):
                 'error': str(e),
                 'status': 'error'
             }, status=500)
-        
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 def saas_page(request):
     return render(request, 'Saas.html')

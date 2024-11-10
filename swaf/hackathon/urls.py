@@ -17,4 +17,5 @@ urlpatterns = [
     path('api/chat/', views.chat_with_gemini, name='chat_with_gemini'),
     path('saas/', views.saas_page, name='saas'),
     path('course/', views.course_page, name='course'),
+    path('api/initialize_chat/', views.initialize_chat, name='initialize_chat'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
